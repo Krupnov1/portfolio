@@ -1,0 +1,91 @@
+.header {
+  grid-area: header;
+  min-height: 99px;
+  border-bottom: 1px solid #ececec;
+  background-color: #fff; }
+  .header .headTop {
+    min-height: inherit;
+    display: flex;
+    align-items: center;
+    padding: 0 15px; }
+    @media (max-width: 767px) {
+      .header .headTop {
+        flex-direction: column;
+        padding: 15px 10px; } }
+    .header .headTop .logo {
+      background: url(../../../images/h_01_logo.png) no-repeat;
+      width: 202px; }
+      .header .headTop .logo a {
+        color: #222222;
+        font-size: 27px;
+        font-weight: 300;
+        line-height: 58px;
+        text-decoration: none;
+        letter-spacing: 0.68px;
+        padding-left: 68px;
+        height: 100%;
+        display: block; }
+        .header .headTop .logo a .headSp {
+          color: #f16d7f;
+          font-weight: 900; }
+    .header .headTop .formHead {
+      height: 40px;
+      border: 1px solid #e6e6e6;
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+      align-items: center; }
+      @media (max-width: 767px) {
+        .header .headTop .formHead {
+          margin-top: 10px; } }
+      .header .headTop .formHead .formBrowse {
+        max-width: 87px;
+        height: inherit;
+        padding: 13px;
+        font-size: 14px;
+        color: #222222;
+        background-color: #f9f9f9;
+        box-sizing: border-box;
+        border-right: 1px solid #e6e6e6; }
+        @media (max-width: 340px) {
+          .header .headTop .formHead .formBrowse {
+            padding-top: 10px;
+            text-align: center; } }
+      .header .headTop .formHead input {
+        max-width: 264px;
+        height: inherit;
+        border: none;
+        outline: none;
+        padding-left: 13px; }
+      .header .headTop .formHead button {
+        height: inherit;
+        padding: 0 11px;
+        border: 0;
+        background: none;
+        border-left: 1px solid #e6e6e6; }
+    .header .headTop .headCart {
+      margin-left: auto;
+      margin-right: 25px;
+      position: relative;
+      animation-name: animHeader;
+      animation-duration: 15s;
+      animation-iteration-count: 3;
+      animation-timing-function: linear;
+      animation-direction: alternate; }
+@keyframes animHeader {
+  from {
+    right: 0; }
+  to {
+    right: 40%; } }
+      @media (max-width: 767px) {
+        .header .headTop .headCart {
+          margin: 0;
+          display: block;
+          margin: 15px 0; } }
+    .header .headTop .headBtn {
+      padding: 15px;
+      background-color: #f16d7f;
+      color: white;
+      border: none; }
+
+/*# sourceMappingURL=style.css.map */
