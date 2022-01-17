@@ -1,0 +1,128 @@
+.header {
+  grid-area: header;
+  min-height: 99px;
+  border-bottom: 1px solid #ececec;
+  background-color: #fff; }
+  .header .headTop {
+    min-height: inherit;
+    display: flex;
+    align-items: center;
+    padding: 0 15px; }
+    @media (max-width: 767px) {
+      .header .headTop {
+        flex-direction: column;
+        padding: 15px 10px; } }
+    .header .headTop .logo {
+      background: url(../../../images/h_01_logo.png) no-repeat;
+      width: 202px; }
+      .header .headTop .logo a {
+        color: #222222;
+        font-size: 27px;
+        font-weight: 300;
+        line-height: 58px;
+        text-decoration: none;
+        letter-spacing: 0.68px;
+        padding-left: 68px;
+        height: 100%;
+        display: block; }
+        .header .headTop .logo a .headSp {
+          color: #f16d7f;
+          font-weight: 900; }
+    .header .headTop .formHead {
+      height: 40px;
+      border: 1px solid #e6e6e6;
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+      align-items: center; }
+      @media (max-width: 767px) {
+        .header .headTop .formHead {
+          margin-top: 10px; } }
+      .header .headTop .formHead .formBrowse {
+        max-width: 87px;
+        height: inherit;
+        padding: 13px;
+        font-size: 14px;
+        color: #222222;
+        background-color: #f9f9f9;
+        box-sizing: border-box;
+        border-right: 1px solid #e6e6e6; }
+        @media (max-width: 340px) {
+          .header .headTop .formHead .formBrowse {
+            padding-top: 10px;
+            text-align: center; } }
+      .header .headTop .formHead input {
+        max-width: 264px;
+        height: inherit;
+        border: none;
+        outline: none;
+        padding-left: 13px; }
+      .header .headTop .formHead button {
+        height: inherit;
+        padding: 0 11px;
+        border: 0;
+        background: none;
+        border-left: 1px solid #e6e6e6; }
+    .header .headTop .cart {
+      position: relative;
+      margin-left: auto;
+      margin-right: 25px; }
+    .header .headTop .headCart {
+      cursor: pointer;}
+      @media (max-width: 767px) {
+        .header .headTop .headCart {
+          margin: 0;
+          display: block;
+          margin: 15px 0; } }
+    .header .headTop .cart .cart-block {
+      box-shadow: 0 0 5px rgb(0 0 0 / 62%);
+      border-radius: 5px;
+      box-sizing: border-box;
+      top: 150%;
+      position: absolute;
+      background-color: white;
+      padding: 20px;
+      color: black;
+      width: 300px; }
+    .header .headTop .cart .cart-block .cart-item {
+      display: flex;
+      justify-content: space-between; }
+    .header .headTop .cart .cart-block .cart-item:not(:last-child) {
+      margin-bottom: 20px; }
+    .header .headTop .cart .cart-block .cart-item .product-bio {
+      display: flex; }
+    .header .headTop .cart .cart-block .cart-item .product-bio img {
+      align-self: flex-start;
+      margin-right: 15px; 
+      width: 50px;
+      height: 60px; }
+    .header .headTop .cart .cart-block .cart-item .product-bio .product-desc {
+      max-width: 150px; }
+    .header .headTop .cart .cart-block .cart-item .product-bio .product-desc .product-quantity {
+      margin-top: 15px; }
+    .header .headTop .cart .cart-block .cart-item .product-bio .product-desc .product-single-price{
+      color: #474747; }
+    .header .headTop .cart .cart-block .cart-item .right-block {
+      text-align: right; }
+    .header .headTop .cart .cart-block .cart-item .right-block .product-price {
+      margin-left: 30px; } 
+    .header .headTop .cart .cart-block .cart-item .right-block .del-btn { 
+      margin-top: 5px;
+      background-color: #2f2a2d;
+      padding: 5px 15px;
+      border: 1px solid transparent;
+      color: #fafafa;
+      border-radius: 5px;
+      transition: all ease-in-out .4s;
+      cursor: pointer; }
+    .header .headTop .cart .cart-block .cart-item .right-block .del-btn:hover{
+      background-color: #fafafa;
+      color: #2f2a2d;
+      border: 1px solid #2f2a2d; }   
+    .header .headTop .headBtn {
+      padding: 15px;
+      background-color: #f16d7f;
+      color: white;
+      border: none; }
+
+/*# sourceMappingURL=style.css.map */

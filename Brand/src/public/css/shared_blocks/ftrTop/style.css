@@ -1,0 +1,66 @@
+.ftrTop {
+  grid-area: ftrTop; }
+  .ftrTop .footerTop {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: minmax(267px, auto);
+    grid-gap: 80px;
+    padding: 110px 15px 90px; }
+    @media (max-width: 1160px) {
+      .ftrTop .footerTop {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        padding-top: 20px; } }
+    @media (max-width: 920px) {
+      .ftrTop .footerTop {
+        grid-template-columns: 1fr 1fr;
+        justify-items: center; } }
+    @media (max-width: 680px) {
+      .ftrTop .footerTop {
+        grid-template-columns: auto;
+        grid-gap: 20px;
+        justify-items: center; } }
+    .ftrTop .footerTop .brand {
+      width: 430px; }
+      @media (max-width: 680px) {
+        .ftrTop .footerTop .brand {
+          width: auto;
+          padding: 20px 15px; } }
+      .ftrTop .footerTop .brand img {
+        float: left; }
+      .ftrTop .footerTop .brand a {
+        color: #222222;
+        font-size: 27px;
+        font-weight: 300;
+        line-height: 58px;
+        text-decoration: none;
+        letter-spacing: 0.68px;
+        padding-left: 13px; }
+        .ftrTop .footerTop .brand a span {
+          color: #f16d7f;
+          font-weight: 900; }
+      .ftrTop .footerTop .brand p {
+        color: #898989;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 24px;
+        letter-spacing: 0.35px;
+        margin-top: 10px; }
+    .ftrTop .footerTop .company h5, .ftrTop .footerTop .info h5, .ftrTop .footerTop .shop h5 {
+      color: #f16d7f;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 26px;
+      letter-spacing: 0.45px; }
+    .ftrTop .footerTop .company a, .ftrTop .footerTop .info a, .ftrTop .footerTop .shop a {
+      text-decoration: none;
+      color: #898989;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.4px;
+      line-height: 42px;
+      display: block; }
+    .ftrTop .footerTop .company {
+      min-width: 145px; }
+
+/*# sourceMappingURL=style.css.map */

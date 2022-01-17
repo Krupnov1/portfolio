@@ -1,0 +1,36 @@
+.arrivals {
+  grid-area: arrivals;
+  min-height: 148px;
+  background-color: #f8f3f4; }
+  .arrivals .arrivalsCont {
+    min-height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px; }
+    @media (max-width: 430px) {
+      .arrivals .arrivalsCont {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start; } }
+    .arrivals .arrivalsCont h1 {
+      color: #f16d7f;
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 20px;
+      text-transform: uppercase; }
+      @media (max-width: 430px) {
+        .arrivals .arrivalsCont h1 {
+          padding-bottom: 15px; } }
+    .arrivals .arrivalsCont a {
+      color: #636363;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 20px;
+      text-transform: uppercase;
+      text-decoration: none; }
+    .arrivals .arrivalsCont .activ {
+      color: #f16d7f;
+      font-weight: 700; }
+
+/*# sourceMappingURL=style.css.map */
