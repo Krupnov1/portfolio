@@ -1,0 +1,30 @@
+[
+    {
+        "id": 15, 
+        "image": "images/Layer_02.png",  
+        "alt": "Blaze", 
+        "title": "BLAZE LEGGINGS",
+        "price": 65.00
+    },
+    {
+        "id": 16, 
+        "image": "images/Layer_03.png", 
+        "alt": "Alexa", 
+        "title": "ALEXA SWEATER",
+        "price": 50.00
+    },
+    {
+        "id": 17, 
+        "image": "images/singlPg_03.png", 
+        "alt": "Agnes", 
+        "title": "AGNES TOP",
+        "price": 32.00
+    },
+    {
+        "id": 18, 
+        "image": "images/Layer_05.png", 
+        "alt": "Sylva", 
+        "title": "SYLVA SWEATER",
+        "price": 54.00
+    }
+]

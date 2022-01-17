@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1, 
+        "image": "images/s_06.jpg",  
+        "alt": "people_1", 
+        "title": "T-shirt men",
+        "price": 40.00
+    },
+    {
+        "id": 2, 
+        "image": "images/s_07.jpg", 
+        "alt": "people_2", 
+        "title": "Blouse women",
+        "price": 53.00
+    },
+    {
+        "id": 3, 
+        "image": "images/Layer_03.jpg", 
+        "alt": "people_3", 
+        "title": "Jacket men",
+        "price": 92.00
+    },
+    {
+        "id": 4, 
+        "image": "images/s_09.jpg", 
+        "alt": "people_4", 
+        "title": "Dress women",
+        "price": 64.00
+    },
+    {
+        "id": 5, 
+        "image": "images/s_10.jpg", 
+        "alt": "people_5", 
+        "title": "Blouse women", 
+        "price": 52.00
+    },
+    {
+        "id": 6, 
+        "image": "images/s_11.jpg", 
+        "alt": "people_6", 
+        "title": "Jacket men",
+        "price": 48.00
+    },
+    {
+        "id": 7, 
+        "image": "images/s_12.jpg", 
+        "alt": "people_7", 
+        "title": "Breeches", 
+        "price": 45.00
+    },
+    {
+        "id": 8, 
+        "image": "images/s_13.jpg", 
+        "alt": "people_8", 
+        "title": "T-shirt men",
+        "price": 76.00
+    }
+]

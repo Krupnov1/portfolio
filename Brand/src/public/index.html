@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+		<title>Brand</title>
+	</head>
+	<body>
+		
+		<div id="app">
+			<div class="container-one">
+				<header class="header">
+					<div class="wrapper headTop">
+						<vue-header-logo></vue-header-logo>
+						<vue-header-filter ref="filter"></vue-header-filter> 
+						<cart ref="cart"></cart>
+						<vue-header-auth></vue-header-auth>
+					</div>  
+				</header>                
+				<vue-nav></vue-nav>
+			</div>
+
+				<router-view ref="view"></router-view> 
+
+			<div class="container-three">
+				<vue-sub></vue-sub>
+				<vue-footer-top></vue-footer-top>
+				<vue-footer-bottom></vue-footer-bottom>
+			</div>
+			<error ref="error"></error>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> 
+			
+	</body>
+
+</html>

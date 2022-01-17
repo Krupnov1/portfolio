@@ -1,0 +1,66 @@
+[
+    {
+        "id": 9, 
+        "image": "images/Layer_01.jpg",  
+        "alt": "men_01", 
+        "title": "Jacket",
+        "price": 85.00
+    },
+    {
+        "id": 10, 
+        "image": "images/Layer_02.jpg", 
+        "alt": "men_02", 
+        "title": "Jacket",
+        "price": 110.00
+    },
+    {
+        "id": 3, 
+        "image": "images/Layer_03.jpg", 
+        "alt": "men_03", 
+        "title": "Jacket",
+        "price": 92.00
+    },
+    {
+        "id": 11, 
+        "image": "images/Layer_04.png", 
+        "alt": "men_04", 
+        "title": "T-shirt",
+        "price": 20.00
+    },
+    {
+        "id": 8, 
+        "image": "images/Layer_05.jpg", 
+        "alt": "men_05", 
+        "title": "T-shirt", 
+        "price": 76.00
+    },
+    {
+        "id": 12, 
+        "image": "images/Layer_06.png", 
+        "alt": "men_06", 
+        "title": "Vest",
+        "price": 30.00
+    },
+    {
+        "id": 6, 
+        "image": "images/Layer_07.jpg", 
+        "alt": "men_07", 
+        "title": "Jacket", 
+        "price": 48.00
+    },
+    {
+        "id": 13, 
+        "image": "images/Layer_08.jpg", 
+        "alt": "men_08", 
+        "title": "Jacket",
+        "price": 90.00
+    },
+    {
+        "id": 14, 
+        "image": "images/Layer_09.png", 
+        "alt": "men_09", 
+        "title": "T-shirt men",
+        "price": 15.00
+    }
+
+]
