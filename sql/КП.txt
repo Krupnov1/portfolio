@@ -1,0 +1,692 @@
+1) -- Интернет магазин запасных частей для легковых автомобилей, продажи, обслуживание клиентов --
+
+
+2) -- Состоит из 11 таблиц --
+
+1. Товары - products
+2. Артикль - article_products
+3. Модель автомобиля - car_brand
+4. Категория товаров - category_products
+5. Тип товара - type_product
+6. Пользователи (клиенты) - customer
+7. Профиль пользователя - profile
+8. Отзывы, комментарии - reviews
+9. Корзина - basket  
+10. Заказы_клиент - orders
+11. Заказы_товар - orders_products
+
+
+
+3) -- Создадим базу для интернет магазина --
+CREATE SCHEMA `car` DEFAULT CHARACTER SET utf8 ;
+
+-- Создадим таблицы данной базы --
+1. products
+CREATE TABLE IF NOT EXISTS `car`.`products` (
+  
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  
+`car_brand_id` INT UNSIGNED NOT NULL,
+  
+`category_products_id` INT UNSIGNED NOT NULL,
+  
+`type_product_id` INT UNSIGNED NOT NULL,
+  
+`article_products_id` INT UNSIGNED NOT NULL,
+  
+`price` DECIMAL(10,2) NOT NULL,
+  
+`created_at` DATETIME NOT NULL DEFAULT NOW(),
+  
+`updated_at` DATETIME NULL DEFAULT NULL ON UPDATE NOW(),
+  
+PRIMARY KEY (`id`),
+  
+INDEX `fk_products_car_brand1_idx` (`car_brand_id` ASC) VISIBLE,
+  
+INDEX `fk_products_category_products1_idx` (`category_products_id` ASC) VISIBLE,
+  
+INDEX `fk_products_type_product1_idx` (`type_product_id` ASC) VISIBLE,
+  
+INDEX `fk_products_article_products1_idx` (`article_products_id` ASC) VISIBLE,
+  
+CONSTRAINT `fk_products_car_brand1`
+    
+FOREIGN KEY (`car_brand_id`)
+    
+REFERENCES `car`.`car_brand` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION,
+  
+CONSTRAINT `fk_products_category_products1`
+    
+FOREIGN KEY (`category_products_id`)
+    
+REFERENCES `car`.`category_products` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION,
+  
+CONSTRAINT `fk_products_type_product1`
+    
+FOREIGN KEY (`type_product_id`)
+    
+REFERENCES `car`.`type_product` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION,
+  
+CONSTRAINT `fk_products_article_products1`
+    
+FOREIGN KEY (`article_products_id`)
+    
+REFERENCES `car`.`article_products` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+2. article_products
+CREATE TABLE IF NOT EXISTS `car`.`article_products` (
+  
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  
+`article` VARCHAR(125) NOT NULL,
+  
+PRIMARY KEY (`id`))
+
+ENGINE = InnoDB;
+
+3. car_brand 
+CREATE TABLE IF NOT EXISTS `car`.`car_brand` (
+  
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  
+`brand` VARCHAR(125) NOT NULL,
+  
+PRIMARY KEY (`id`),
+  
+UNIQUE INDEX `brand_UNIQUE` (`brand` ASC) VISIBLE)
+
+ENGINE = InnoDB;
+
+4. category_products 
+CREATE TABLE IF NOT EXISTS `car`.`category_products` (
+
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  
+`category` VARCHAR(125) NOT NULL,
+  
+PRIMARY KEY (`id`))
+
+ENGINE = InnoDB;
+
+5. type_product 
+CREATE TABLE IF NOT EXISTS `car`.`type_product` (
+  
+`id` INT UNSIGNED NOT NULL,
+  
+`type` VARCHAR(125) NOT NULL,
+  
+PRIMARY KEY (`id`))
+
+ENGINE = InnoDB;
+
+6. customer 
+CREATE TABLE IF NOT EXISTS `car`.`customer` (
+  
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  
+`email` VARCHAR(125) NOT NULL,
+  
+`phone` BIGINT NOT NULL,
+  
+`password_hash` CHAR(65) NULL DEFAULT NULL,
+  
+`created_at` DATETIME NOT NULL DEFAULT NOW(),
+  
+`update_at` DATETIME NULL DEFAULT NULL ON UPDATE NOW(),
+  
+`deleted_at` DATETIME NULL DEFAULT NULL,
+  
+PRIMARY KEY (`id`),
+  
+UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  
+UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE)
+
+ENGINE = InnoDB;
+
+7. profile
+CREATE TABLE IF NOT EXISTS `car`.`profile` (
+  
+`profile_id` INT UNSIGNED NOT NULL,
+  
+`firstname` VARCHAR(125) NOT NULL,
+  
+`lastname` VARCHAR(125) NOT NULL,
+  
+`birthday` DATE NOT NULL,
+  
+PRIMARY KEY (`customer_id`),
+  
+CONSTRAINT `fk_profile_customer`
+    
+FOREIGN KEY (`customer_id`)
+    
+REFERENCES `car`.`customer` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+8. reviews
+CREATE TABLE IF NOT EXISTS `car`.`reviews` (
+  
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  
+`customer_id` INT UNSIGNED NOT NULL,
+  
+`reviews_id` INT UNSIGNED NULL DEFAULT NULL,
+  
+`texts` TEXT NOT NULL,
+  
+`created_at` DATETIME NOT NULL DEFAULT NOW(),
+  
+`updated_at` DATETIME NULL DEFAULT NULL ON UPDATE NOW(),
+  
+`deleted_at` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  
+INDEX `fk_reviews_customer1_idx` (`customer_id` ASC) VISIBLE,
+  
+INDEX `fk_reviews_reviews1_idx` (`reviews_id` ASC) VISIBLE,
+  
+CONSTRAINT `fk_reviews_customer1`
+    
+FOREIGN KEY (`customer_id`)
+    
+REFERENCES `car`.`customer` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION,
+  
+CONSTRAINT `fk_reviews_reviews1`
+    
+FOREIGN KEY (`reviews_id`)
+    
+REFERENCES `car`.`reviews` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB; 
+
+9. basket
+CREATE TABLE IF NOT EXISTS `car`.`basket` (
+  
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  
+`products_id` INT UNSIGNED NOT NULL,
+  
+`quantity` INT NOT NULL,
+  
+`id_session` VARCHAR(125) NOT NULL,
+  
+`created_at` DATETIME NOT NULL DEFAULT NOW(),
+  
+`updated_at` DATETIME NULL DEFAULT NULL ON UPDATE NOW(),
+  
+`deleted_at` DATETIME NULL DEFAULT NULL,
+  
+PRIMARY KEY (`id`),
+  
+INDEX `fk_basket_products1_idx` (`products_id` ASC) VISIBLE,
+  
+CONSTRAINT `fk_basket_products1`
+    
+FOREIGN KEY (`products_id`)
+    
+REFERENCES `car`.`products` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+10. orders
+CREATE TABLE IF NOT EXISTS `car`.`orders` (
+  
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  
+`customer_id` INT UNSIGNED NOT NULL,
+  
+`created_at` DATETIME NOT NULL,
+  
+`updated_at` DATETIME NULL DEFAULT NULL ON UPDATE NOW(),
+  
+PRIMARY KEY (`id`),
+  
+INDEX `fk_orders_customer1_idx` (`customer_id` ASC) VISIBLE,
+  
+CONSTRAINT `fk_orders_customer1`
+    
+FOREIGN KEY (`customer_id`)
+    
+REFERENCES `car`.`customer` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+11. orders_products
+CREATE TABLE IF NOT EXISTS `car`.`orders_products` (
+  
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  
+`orders_id` INT UNSIGNED NOT NULL,
+  
+`basket_id` INT UNSIGNED NOT NULL,
+  
+`total` INT UNSIGNED NULL DEFAULT '1',
+  
+`created_at` DATETIME NOT NULL DEFAULT NOW(),
+  
+`updated_at` DATETIME NULL DEFAULT NULL ON UPDATE NOW(),
+  
+PRIMARY KEY (`id`),
+  
+INDEX `fk_orders_products_orders1_idx` (`orders_id` ASC) VISIBLE,
+  
+INDEX `fk_orders_products_basket1_idx` (`basket_id` ASC) VISIBLE,
+  
+CONSTRAINT `fk_orders_products_orders1`
+    
+FOREIGN KEY (`orders_id`)
+    
+REFERENCES `car`.`orders` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION,
+  
+CONSTRAINT `fk_orders_products_basket1`
+    
+FOREIGN KEY (`basket_id`)
+    
+REFERENCES `car`.`basket` (`id`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+
+4) Создадим ERDiagram для БД
+
+
+5) -- Наполним базу данными --
+INSERT INTO `car`.`article_products` (`id`, `article`) VALUES ('1', '00001ЛА');
+
+INSERT INTO `car`.`article_products` (`id`, `article`) VALUES ('2', '00002ЛА');
+
+INSERT INTO `car`.`article_products` (`id`, `article`) VALUES ('3', '00003ЛА');
+
+INSERT INTO `car`.`article_products` (`id`, `article`) VALUES ('4', '00004ЛА');
+
+INSERT INTO `car`.`article_products` (`id`, `article`) VALUES ('5', '00005ЛА');
+
+INSERT INTO `car`.`article_products` (`id`, `article`) VALUES ('6', '00006ЛА');
+
+INSERT INTO `car`.`article_products` (`id`, `article`) VALUES ('7', '00007ЛА');
+
+INSERT INTO `car`.`article_products` (`id`, `article`) VALUES ('8', '00008ЛА');
+
+INSERT INTO `car`.`article_products` (`id`, `article`) VALUES ('9', '00009ЛА');
+
+INSERT INTO `car`.`article_products` (`id`, `article`) VALUES ('10', '00010ЛА');
+
+
+INSERT INTO `car`.`car_brand` (`id`, `brand`) VALUES ('1', 'Lada');
+
+INSERT INTO `car`.`car_brand` (`id`, `brand`) VALUES ('2', 'Kia');
+
+INSERT INTO `car`.`car_brand` (`id`, `brand`) VALUES ('3', 'Audi');
+
+INSERT INTO `car`.`car_brand` (`id`, `brand`) VALUES ('4', 'BMW');
+
+INSERT INTO `car`.`car_brand` (`id`, `brand`) VALUES ('5', 'Volvo');
+
+
+INSERT INTO `car`.`category_products` (`id`, `category`) VALUES ('1', 'Моторное масло');
+
+INSERT INTO `car`.`category_products` (`id`, `category`) VALUES ('2', 'Фильтр');
+
+INSERT INTO `car`.`category_products` (`id`, `category`) VALUES ('3', 'Аккумуляторная батарея');
+
+INSERT INTO `car`.`category_products` (`id`, `category`) VALUES ('4', 'Фара');
+
+INSERT INTO `car`.`category_products` (`id`, `category`) VALUES ('5', 'Шины');
+
+
+INSERT INTO `car`.`type_product` (`id`, `type`) VALUES ('1', 'Топливный фильтр');
+
+INSERT INTO `car`.`type_product` (`id`, `type`) VALUES ('2', 'Масляный фильтр');
+
+INSERT INTO `car`.`type_product` (`id`, `type`) VALUES ('3', 'Воздушный фильтр');
+
+INSERT INTO `car`.`type_product` (`id`, `type`) VALUES ('4', 'Кислотная АКБ');
+
+INSERT INTO `car`.`type_product` (`id`, `type`) VALUES ('5', 'Щелочная АКБ');
+
+INSERT INTO `car`.`type_product` (`id`, `type`) VALUES ('6', 'Синтетическое моторное масло');
+
+INSERT INTO `car`.`type_product` (`id`, `type`) VALUES ('7', 'Полусинтетическое моторное масло');
+
+INSERT INTO `car`.`type_product` (`id`, `type`) VALUES ('8', 'Левая фара');
+
+INSERT INTO `car`.`type_product` (`id`, `type`) VALUES ('9', 'Правая фара');
+
+INSERT INTO `car`.`type_product` (`id`, `type`) VALUES ('10', 'Всесезонные шины');
+
+
+INSERT INTO `car`.`products` (`id`, `car_brand_id`, `category_products_id`, `type_product_id`, `article_products_id`, `price`) VALUES ('1', '1', '3', '4', '4', '500');
+
+INSERT INTO `car`.`products` (`id`, `car_brand_id`, `category_products_id`, `type_product_id`, `article_products_id`, `price`) VALUES ('2', '1', '5', '10', '10', '2500');
+INSERT INTO `car`.`products` (`id`, `car_brand_id`, `category_products_id`, `type_product_id`, `article_products_id`, `price`) VALUES ('3', '2', '2', '1', '1', '350');
+
+INSERT INTO `car`.`products` (`id`, `car_brand_id`, `category_products_id`, `type_product_id`, `article_products_id`, `price`) VALUES ('4', '2', '4', '9', '9', '3500');
+
+INSERT INTO `car`.`products` (`id`, `car_brand_id`, `category_products_id`, `type_product_id`, `article_products_id`, `price`) VALUES ('5', '3', '3', '5', '5', '2000');
+
+INSERT INTO `car`.`products` (`id`, `car_brand_id`, `category_products_id`, `type_product_id`, `article_products_id`, `price`) VALUES ('6', '3', '5', '10', '10', '3000');
+
+INSERT INTO `car`.`products` (`id`, `car_brand_id`, `category_products_id`, `type_product_id`, `article_products_id`, `price`) VALUES ('7', '4', '1', '7', '7', '600');
+
+INSERT INTO `car`.`products` (`id`, `car_brand_id`, `category_products_id`, `type_product_id`, `article_products_id`, `price`) VALUES ('8', '4', '4', '8', '8', '5000');
+
+INSERT INTO `car`.`products` (`id`, `car_brand_id`, `category_products_id`, `type_product_id`, `article_products_id`, `price`) VALUES ('9', '5', '5', '10', '10', '3000');
+
+INSERT INTO `car`.`products` (`id`, `car_brand_id`, `category_products_id`, `type_product_id`, `article_products_id`, `price`) VALUES ('10', '5', '2', '3', '3', '350');
+
+
+INSERT INTO `car`.`basket` (`id`, `products_id`, `quantity`, `id_session`) VALUES ('1', '2', '4', 'qwert567');
+
+INSERT INTO `car`.`basket` (`id`, `products_id`, `quantity`, `id_session`) VALUES ('2', '3', '1', 'zxfr789');
+
+INSERT INTO `car`.`basket` (`id`, `products_id`, `quantity`, `id_session`) VALUES ('3', '6', '2', 'nhy123');
+
+INSERT INTO `car`.`basket` (`id`, `products_id`, `quantity`, `id_session`) VALUES ('4', '8', '1', 'mnio986');
+
+INSERT INTO `car`.`basket` (`id`, `products_id`, `quantity`, `id_session`) VALUES ('5', '2', '4', 'rty678');
+INSERT INTO `car`.`basket` (`id`, `products_id`, `quantity`, `id_session`) VALUES ('6', '4', '2', 'uytr567');
+
+INSERT INTO `car`.`basket` (`id`, `products_id`, `quantity`, `id_session`) VALUES ('7', '9', '1', 'mng457');
+
+INSERT INTO `car`.`basket` (`id`, `products_id`, `quantity`, `id_session`) VALUES ('8', '10', '1', 'zxer3490');
+
+INSERT INTO `car`.`basket` (`id`, `products_id`, `quantity`, `id_session`) VALUES ('9', '3', '8', 'lksa1290');
+
+INSERT INTO `car`.`basket` (`id`, `products_id`, `quantity`, `id_session`) VALUES ('10', '5', '3', 'cfbn5487');
+
+
+INSERT INTO `car`.`customer` (`id`, `email`, `phone`, `password_hash`, `created_at`) VALUES ('1', 'sarina64@example.net', '79360647500	', '27880df586fc26f3e115149cc5f347d65ab82eef', '2016-03-13 15:20:52');
+
+INSERT INTO `car`.`customer` (`id`, `email`, `phone`, `password_hash`, `created_at`) VALUES ('2', 'raynor.letitia@example.org', '79318149879', 'f74a63dbdd9c53f96c41c595f6b53a2f57db1489', '2018-01-04 22:38:13');
+
+INSERT INTO `car`.`customer` (`id`, `email`, `phone`, `password_hash`, `created_at`) VALUES ('3', 'emurphy@example.net', '79191513482', '2a87d63c4d6c02a492365500485595094f8490ff', '2014-09-12 06:08:30');
+
+INSERT INTO `car`.`customer` (`id`, `email`, `phone`, `password_hash`, `created_at`) VALUES ('4', 'green94@example.org', '79252071231', 'd24c03b5c32a990678c871fa1d2a3314975d0e20', '2019-07-17 10:55:44');
+
+INSERT INTO `car`.`customer` (`id`, `email`, `phone`, `password_hash`, `created_at`) VALUES ('5', 'smuller@example.com', '79841721511', '24a75982fcf5b5100b591c1fda2b243caaa1ed50', '2016-03-14 00:49:56');
+
+INSERT INTO `car`.`customer` (`id`, `email`, `phone`, `password_hash`, `created_at`) VALUES ('6', 'collins.kelsie@example.org', '79411645121', '350f7162552ec6ef4f2516f22b89d0af860bfc4f', '2015-11-14 22:55:02');
+
+INSERT INTO `car`.`customer` (`id`, `email`, `phone`, `password_hash`, `created_at`) VALUES ('7', 'eugenia63@example.org', '79725992860', '30135cf932b4cd8b6f6d0db49d2aaefd614bfade', '2017-12-22 00:09:27');
+
+INSERT INTO `car`.`customer` (`id`, `email`, `phone`, `password_hash`, `created_at`) VALUES ('8', 'akeem75@example.net', '79417108354', '8e9618fb56d73a8f6fa9a4b14b01808a7f9dd905', '2021-01-08 12:51:47');
+
+INSERT INTO `car`.`customer` (`id`, `email`, `phone`, `password_hash`, `created_at`) VALUES ('9', 'baumbach.brennan@example.org', '79264649314', '77beec0a9593c50fbbd7d87c78a460c557770a41', '2013-08-12 02:35:53');
+
+INSERT INTO `car`.`customer` (`id`, `email`, `phone`, `password_hash`, `created_at`) VALUES ('10', 'willy.skiles@example.com', '79814337606', '80418f86c39f85da9b24e500d5661b801c780292', '2015-08-14 06:30:52');
+
+
+INSERT INTO `car`.`profile` (`profile_id`, `firstname`, `lastname`, `birthday`) VALUES ('1', 'Millie', 'Considine', '1983-04-05');
+
+INSERT INTO `car`.`profile` (`profile_id`, `firstname`, `lastname`, `birthday`) VALUES ('2', 'Evans', 'Walter', '1980-06-16');
+
+INSERT INTO `car`.`profile` (`profile_id`, `firstname`, `lastname`, `birthday`) VALUES ('3', 'Rosemary', 'Bins', '1991-04-02');
+
+INSERT INTO `car`.`profile` (`profile_id`, `firstname`, `lastname`, `birthday`) VALUES ('4', 'Einar', 'Marks', '1976-01-21');
+
+INSERT INTO `car`.`profile` (`profile_id`, `firstname`, `lastname`, `birthday`) VALUES ('5', 'Dario', 'Parker', '1988-03-04');
+
+INSERT INTO `car`.`profile` (`profile_id`, `firstname`, `lastname`, `birthday`) VALUES ('6', 'Kareem', 'Wisoky', '1974-10-21');
+
+INSERT INTO `car`.`profile` (`profile_id`, `firstname`, `lastname`, `birthday`) VALUES ('7', 'Augustus', 'Legros', '1976-01-08');
+
+INSERT INTO `car`.`profile` (`profile_id`, `firstname`, `lastname`, `birthday`) VALUES ('8', 'Heidi', 'Kohler', '1975-12-05');
+
+INSERT INTO `car`.`profile` (`profile_id`, `firstname`, `lastname`, `birthday`) VALUES ('9', 'Abigayle', 'Heller', '1984-09-30');
+
+INSERT INTO `car`.`profile` (`profile_id`, `firstname`, `lastname`, `birthday`) VALUES ('10', 'Travis', 'Bednar', '1989-12-09');
+
+
+INSERT INTO `car`.`orders` (`id`, `customer_id`) VALUES ('1', '2');
+
+INSERT INTO `car`.`orders` (`id`, `customer_id`) VALUES ('2', '6');
+
+INSERT INTO `car`.`orders` (`id`, `customer_id`) VALUES ('3', '8');
+
+INSERT INTO `car`.`orders` (`id`, `customer_id`) VALUES ('4', '5');
+
+INSERT INTO `car`.`orders` (`id`, `customer_id`) VALUES ('5', '9');
+
+INSERT INTO `car`.`orders` (`id`, `customer_id`) VALUES ('6', '3');
+
+INSERT INTO `car`.`orders` (`id`, `customer_id`) VALUES ('7', '4');
+
+INSERT INTO `car`.`orders` (`id`, `customer_id`) VALUES ('8', '1');
+
+INSERT INTO `car`.`orders` (`id`, `customer_id`) VALUES ('9', '2');
+
+INSERT INTO `car`.`orders` (`id`, `customer_id`) VALUES ('10', '1');
+ 
+
+
+INSERT INTO `car`.`orders_products` (`id`, `orders_id`, `basket_id`, `total`) VALUES ('1', '4', '4', '3');
+
+INSERT INTO `car`.`orders_products` (`id`, `orders_id`, `basket_id`, `total`) VALUES ('2', '7', '8', '4');
+
+INSERT INTO `car`.`orders_products` (`id`, `orders_id`, `basket_id`, `total`) VALUES ('3', '2', '1', '1');
+
+INSERT INTO `car`.`orders_products` (`id`, `orders_id`, `basket_id`, `total`) VALUES ('4', '9', '9', '2');
+
+INSERT INTO `car`.`orders_products` (`id`, `orders_id`, `basket_id`, `total`) VALUES ('5', '6', '4', '2');
+
+INSERT INTO `car`.`orders_products` (`id`, `orders_id`, `basket_id`, `total`) VALUES ('6', '3', '5', '1');
+
+INSERT INTO `car`.`orders_products` (`id`, `orders_id`, `basket_id`, `total`) VALUES ('7', '8', '3', '1');
+
+INSERT INTO `car`.`orders_products` (`id`, `orders_id`, `basket_id`, `total`) VALUES ('8', '1', '7', '4');
+
+INSERT INTO `car`.`orders_products` (`id`, `orders_id`, `basket_id`, `total`) VALUES ('9', '10', '5', '2');
+
+INSERT INTO `car`.`orders_products` (`id`, `orders_id`, `basket_id`, `total`) VALUES ('10', '5', '10', '1');
+
+
+INSERT INTO `car`.`reviews` (`id`, `customer_id`, `texts`) VALUES ('1', '3', 'Praesentium inventore sed nobis tempora impedit inventore perspiciatis.');
+
+INSERT INTO `car`.`reviews` (`id`, `customer_id`, `texts`) VALUES ('2', '7', 'Accusantium exercitationem consequuntur odit repellendus quisquam sed.');
+
+INSERT INTO `car`.`reviews` (`id`, `customer_id`, `texts`) VALUES ('3', '4', 'Fugiat eum iure voluptatem sunt consequuntur aut quibusdam illum.');
+
+INSERT INTO `car`.`reviews` (`id`, `customer_id`, `texts`) VALUES ('4', '8', 'Accusantium exercitationem consequuntur odit repellendus quisquam sed.');
+
+INSERT INTO `car`.`reviews` (`id`, `customer_id`, `texts`) VALUES ('5', '1', 'Sit dolore placeat id officia asperiores id.');
+
+INSERT INTO `car`.`reviews` (`id`, `customer_id`, `texts`) VALUES ('6', '10', 'Provident quasi nobis voluptatibus est illo quibusdam.');
+
+INSERT INTO `car`.`reviews` (`id`, `customer_id`, `texts`) VALUES ('7', '7', 'Aut nam optio necessitatibus ea omnis neque dolorem consequatur.');
+
+INSERT INTO `car`.`reviews` (`id`, `customer_id`, `texts`) VALUES ('8', '3', 'Est vitae iusto et nesciunt magnam officia ducimus quidem.');
+
+INSERT INTO `car`.`reviews` (`id`, `customer_id`, `texts`) VALUES ('9', '9', 'Quia accusantium doloremque non soluta et ad nihil.');
+
+INSERT INTO `car`.`reviews` (`id`, `customer_id`, `texts`) VALUES ('10', '2', 'Molestiae non similique esse voluptate provident provident libero voluptatibus.');
+   
+
+
+6) -- Выполним скрипты характерных выборок (включающие группировки, JOIN'ы, вложенные запросы) --
+
+Соберем всю информацию по товарам в таблице products и ограничим каким либо пунктом:
+SELECT products.id, article, brand, category, type, price, created_at, updated_at 
+FROM products
+	
+JOIN car_brand ON products.car_brand_id = car_brand.id
+    
+JOIN category_products ON products.category_products_id = category_products.id
+    
+JOIN type_product ON products.type_product_id = type_product.id
+    
+JOIN article_products ON products.article_products_id = article_products.id 
+
+WHERE brand = 'Lada'; 
+(или WHERE на любой другой пункт)
+
+
+Выберем товар, пользующийся большим и меньшим спросом
+SELECT products_id,
+
+COUNT(products_id) AS max 
+
+FROM orders_products
+	
+JOIN basket ON orders_products.basket_id = basket.id
+
+GROUP BY products_id
+
+ORDER BY max 
+DESC 
+LIMIT 1;
+
+
+SELECT products.id min
+
+FROM products
+
+WHERE NOT EXISTS (SELECT * FROM basket WHERE basket.products_id = products.id)
+
+UNION
+
+SELECT products_id
+
+FROM basket
+
+WHERE NOT EXISTS (SELECT * FROM products WHERE basket.products_id = products.id);    
+
+
+Выберем клиента, который больше всех сделал заказов и на какой товар
+SELECT orders.customer_id, firstname, lastname, email, phone,
+
+COUNT(orders.customer_id) AS max 
+
+FROM orders	
+
+JOIN orders_products ON orders_products.orders_id = orders.id
+
+JOIN `profile` ON orders.customer_id = `profile`.customer_id
+
+JOIN customer ON `profile`.customer_id = customer.id 
+
+GROUP BY orders.customer_id
+
+ORDER BY max 
+
+DESC 
+
+LIMIT 1;
+
+
+7) -- Напишем представление --
+Представление выводит имя и фамилию клиента, который написал отзыв или пожелание
+CREATE VIEW reviews_name (firstname, lastname, texts) AS
+  
+
+SELECT
+
+p.firstname,
+
+p.lastname,   
+
+r.texts 
+
+  
+
+FROM reviews AS r 
+
+JOIN profile as p
+  
+
+ON 
+p.customer_id = r.customer_id;
+
+
+8) -- 1. Создадим процедуру --
+Так как мы получили id товара, который пользуется наименьшим спросом, создадим
+процедуру, которая будет выводить данный товар и предлагать на него скидку. В нашем случае это
+товар с id = 1 и скидка на него составит 5%. Запрос процедуры будет следующий:
+call discaunted_min_demand_prod(1, 5);
+
+
+   -- 2. Создадим триггер --
+1. Создадим триггер для таблицы reviews, который запретит вносить данные без текста отзыва.
+
+2. Создадим триггер для таблицы type_product, который запретит вписать пустую строку. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
